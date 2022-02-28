@@ -1,6 +1,6 @@
 ccucc.services = {
-  baseURL = "https://anypoint.mulesoft.com/mocking/api/v1/sources/exchange/assets/1a662d35-8008-4343-b811-226e2284646b/appdeveloperinterview/1.0.1/m",
-  userId = '12345',
+  baseURL: "https://anypoint.mulesoft.com/mocking/api/v1/sources/exchange/assets/1a662d35-8008-4343-b811-226e2284646b/appdeveloperinterview/1.0.1/m",
+  userId: '12345',
 
   cardControls: {
     onOff: function(data){
