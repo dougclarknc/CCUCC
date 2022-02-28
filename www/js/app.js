@@ -1,11 +1,11 @@
 // App logic.
-window.ccncc = {};
+window.ccucc = {};
 
 document.addEventListener('init', function(event) {
   var page = event.target;
 
   // Each page calls its own initialization controller.
-  if (ccncc.controllers.hasOwnProperty(page.id)) {
-    ccncc.controllers[page.id](page);
+  if (ccucc.controllers.hasOwnProperty(page.id)) {
+    ccucc.controllers[page.id](page);
   }
 });
