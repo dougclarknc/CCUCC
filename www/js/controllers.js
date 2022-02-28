@@ -14,6 +14,7 @@ ccncc.controllers = {
 
     document.querySelector('ons-switch').addEventListener('change', function() {
       var currentCardID = page.querySelector('#cardSelect').value.cardID;
+      console.log("controller init onoff");
       var success = ccncc.services.cardControls.onOff({
         cardID: currentCardID,
         frozen: value,

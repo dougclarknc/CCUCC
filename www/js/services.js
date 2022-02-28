@@ -11,7 +11,7 @@ ccucc.services = {
         method: 'POST',
         headers
       };
-      
+      console.log("at onOff");
       fetch(`${baseURL}/cardcontrols/onoff/${data.cardId}`, init)
       .then((response) => {
         return response.json(); // or .text() or .blob() ...
