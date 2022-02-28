@@ -15,7 +15,7 @@
       <h2>Select Card</h2>
     </ons-list-item>
     <ons-list-item>
-      <ons-select name="cardSelect"></ons-select>
+      <ons-select id="cardSelect"></ons-select>
     </ons-list-item>
     <ons-list-item>
       <div class="center">Freeze Card</div>
@@ -40,7 +40,7 @@
   </ons-if>
   <script>
     ons.getScriptPage().onInit = function() {
-      console.log('This is a lifecycle hook!', this);
+      ccucc.services.getCardInfo();
     };
   </script>
 </ons-page>
