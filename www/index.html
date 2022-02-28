@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+  <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+  <script src="js/services.js"></script>
+  <script src="js/controllers.js"></script>
+</head>
+<body>
+  <ons-splitter>
+    <!-- The side menu -->
+    <ons-splitter-side id="hideMe" collapse width="220px">
+      <ons-page></ons-page>
+    </ons-splitter-side>
+
+    <!-- Everything not in the side menu -->
+    <ons-splitter-content>
+      <ons-navigator id="navigator" page="html/cardMgmt.html"></ons-navigator>
+    </ons-splitter-content>
+  </ons-splitter>
+</body>
+</html>

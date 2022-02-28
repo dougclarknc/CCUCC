@@ -1,0 +1,46 @@
+<ons-page id="cardMgmtPage">
+  <ons-toolbar>
+    <div class="left"><ons-back-button>Back</ons-back-button></div>
+    <div class="center">Card Management</div>
+    <div class="right">
+      <ons-if platform="android">
+        <ons-toolbar-button component="button/submit">
+          <ons-icon icon="md-save"></ons-icon>
+        </ons-toolbar-button>
+      </ons-if>
+    </div>
+  </ons-toolbar>  
+  <ons-list>
+    <ons-list-item modifier="nodivider">
+      <h2>Select Card</h2>
+    </ons-list-item>
+    <ons-list-item>
+      <ons-select name="cardSelect"></ons-select>
+    </ons-list-item>
+    <ons-list-item>
+      <div class="center">Freeze Card</div>
+      <div class="right"><ons-switch id="freezeSwitch"></ons-switch></div>
+    </ons-list-item>
+    <ons-list-item modifier="nodivider">
+      <div class="center">Request Replacement</div>
+      <div class="right">
+        <ons-select id="replaceReasonSelect" >
+          <option value="">Selection Required</option>
+          <option value="lost">Lost</option>
+          <option value="stolen">Stolen</option>
+          <option value="damaged">Damaged</option>
+        </ons-select>
+      </div>
+    </ons-list-item>
+    <ons-list-item>
+      <textarea class="textarea textarea--transparent" rows=3 id="commentsTextArea" placeholder="Comments Optional"></textarea>
+    </ons-list-item>
+  <ons-if platform="ios other">
+    <ons-button modifier="large" component="button/submit">Submit</ons-button>
+  </ons-if>
+  <script>
+    ons.getScriptPage().onInit = function() {
+      console.log('This is a lifecycle hook!', this);
+    };
+  </script>
+</ons-page>
