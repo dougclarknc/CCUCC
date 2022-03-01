@@ -3,22 +3,52 @@
 <head>
   <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
   <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
-  <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
-  <script src="js/services.js"></script>
-  <script src="js/controllers.js"></script>
-  <script src="js/app.js"> </script>
 </head>
 <body>
-  <ons-splitter>
-    <!-- The side menu -->
-    <ons-splitter-side id="hideMe" collapse width="220px">
-      <ons-page></ons-page>
-    </ons-splitter-side>
-
-    <!-- Everything not in the side menu -->
-    <ons-splitter-content>
-      <ons-navigator id="navigator" page="html/cardMgmt.html"></ons-navigator>
-    </ons-splitter-content>
-  </ons-splitter>
+  <ons-page id="cardMgmtPage">
+    <ons-toolbar>
+      <div class="left"><ons-back-button>Back</ons-back-button></div>
+      <div class="center">Card Management</div>
+      <div class="right">
+        <ons-if platform="android">
+          <ons-toolbar-button component="button/submit">
+            <ons-icon icon="md-save"></ons-icon>
+          </ons-toolbar-button>
+        </ons-if>
+      </div>
+    </ons-toolbar>  
+    <ons-list>
+      <ons-list-item modifier="nodivider">
+        <h2>Select Card</h2>
+      </ons-list-item>
+      <ons-list-item>
+        <ons-select id="cardSelect"></ons-select>
+      </ons-list-item>
+      <ons-list-item>
+        <div class="center">Freeze Card</div>
+        <div class="right"><ons-switch id="freezeSwitch"></ons-switch></div>
+      </ons-list-item>
+      <ons-list-item modifier="nodivider">
+        <div class="center">Request Replacement</div>
+        <div class="right">
+          <ons-select id="replaceReasonSelect" >
+            <option value="">Selection Required</option>
+            <option value="lost">Lost</option>
+            <option value="stolen">Stolen</option>
+            <option value="damaged">Damaged</option>
+          </ons-select>
+        </div>
+      </ons-list-item>
+      <ons-list-item>
+        <textarea class="textarea textarea--transparent" rows=3 id="commentsTextArea" placeholder="Comments Optional"></textarea>
+      </ons-list-item>
+    <ons-if platform="ios other">
+      <ons-button modifier="large" component="button/submit">Submit</ons-button>
+    </ons-if>
+    <script src="lib/onsenui/js/onsenui.js"></script>
+    <script type="text/javascript" src="js/app.js"> </script>
+    <script type="text/javascript" src="js/services.js"></script>
+    <script type="text/javascript" src="js/controllers.js"></script>
+  </ons-page>
 </body>
 </html>

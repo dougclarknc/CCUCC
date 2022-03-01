@@ -1,4 +1,4 @@
-ccucc.services = {
+myApp.services = {
   baseURL: "https://anypoint.mulesoft.com/mocking/api/v1/sources/exchange/assets/1a662d35-8008-4343-b811-226e2284646b/appdeveloperinterview/1.0.1/m",
   userId: '12345',
 
@@ -12,15 +12,17 @@ ccucc.services = {
         headers
       };
       console.log("at onOff");
-      fetch(`${baseURL}/cardcontrols/onoff/${data.cardId}`, init)
+      fetch(`${myApp.services.baseURL}/cardcontrols/onoff/${data.cardId}`, init)
       .then((response) => {
-        return response.json(); // or .text() or .blob() ...
+        if (!response.ok) console.error("Response NOT OK");
+        else console.log("Response OK");
+        response.json(); // or .text() or .blob() ...
       })
-      .then((text) => {
-        // text is the response body
+      .then((data) => {
+        console.log(data.value);
       })
       .catch((e) => {
-        // error in e.message
+        console.error(e.message);
       });
     },
 
