@@ -8,7 +8,9 @@ document.addEventListener('init', function(event) {
   // Each page calls its own initialization controller
   if (myApp.controllers.hasOwnProperty(page.id)) {
     myApp.controllers[page.id](page);
-  }
+  } //Improvement: remove vestigial multi-page init
 
+  //Improvement: smoke-loader
   myApp.services.cardInfo({});
+  //Improvement: sloppy app init
 });

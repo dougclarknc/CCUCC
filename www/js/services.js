@@ -1,6 +1,7 @@
 myApp.services = {
   baseURL: "https://anypoint.mulesoft.com/mocking/api/v1/sources/exchange/assets/1a662d35-8008-4343-b811-226e2284646b/appdeveloperinterview/1.0.1/m",
   userId: '12345',
+  dummyData: [], //Improvement: should be dataService operating on model/
 
   cardControls: {
     onOff: async function(data){
@@ -13,12 +14,10 @@ myApp.services = {
       };
       await fetch(`${myApp.services.baseURL}/cardcontrols/onoff/${data.cardId}`, init)
       .then((response) => {
-        //console.log("service response: " +response.ok);
         success = response.ok; // or .text() or .blob() ..
         return success;
       })
       .then((success) => {
-        //console.log("service ok: " +success);
       })
       .catch((e) => {
         console.error(e.message);
@@ -51,7 +50,6 @@ myApp.services = {
         return response.ok; // or .text() or .blob() ...
       })
       .then((body) => {
-          //console.log(JSON.stringify(body));
       })
       .catch((e) => {
         console.error(e);
@@ -80,10 +78,13 @@ myApp.services = {
             cardId: card.cardId,
             cardName: card.cardName,
             maskedCardNumber: card.maskedCardNumber,
-            frozen: false
+            //FIXME: mockupdata has no frozen toggle
+            frozen: card.cardId % 2==0,
+            replacing: "false", //damaged, lost, stolen
         });
+        //Improvement: bind to model insert into localData
       }
-      //console.log(JSON.stringify(text));
+      console.log(JSON.stringify(myApp.services.dummyData));
     })
     .catch((e) => {
       console.error(e);
@@ -96,25 +97,20 @@ myApp.services = {
       var cardItem = ons.createElement(
         `<option value=${data.cardId}>`+
           `<ons-list-item class='card' tappable id=${data.cardId}">` +
-            '<div class="left">' +
+            '<div class="right">' +
               data.maskedCardNumber +
             '</div>' +
-            '<div class="right">' +
+            '<div class="left">' +
               data.cardName +
             '</div>' +
           '</ons-list-item>'+
         '</option>'
       );
       cardItem.data = data;
-
-      // Add functionality to update form when card changed
-      cardItem.querySelector('.card').onclick = function() {
-        document.querySelector("#cardSelect");
-        document.querySelector('#freezeSwitch').checked = data.frozen
-      };
-
+//Improvement: options/cards should be updated/created by controller
       var cardList = document.querySelector('#cardSelect');
       cardList.add(cardItem);
+      myApp.services.dummyData.push(data);
     }
   }
 }
