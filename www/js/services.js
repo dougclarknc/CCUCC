@@ -3,7 +3,7 @@ myApp.services = {
   userId: '12345',
 
   cardControls: {
-    onOff: function(data){
+    onOff: async function(data){
       const headers = new Headers();
       headers.append('API-Key', 'C5F5A63C-E604-47AA-A7CC-B01F95FFBF09');
       
@@ -11,44 +11,54 @@ myApp.services = {
         method: 'POST',
         headers
       };
-      fetch(`${myApp.services.baseURL}/cardcontrols/onoff/${data.cardId}`, init)
+      await fetch(`${myApp.services.baseURL}/cardcontrols/onoff/${data.cardId}`, init)
       .then((response) => {
-        response.blob(); // or .text() or .blob() ..
+        //console.log("service response: " +response.ok);
+        success = response.ok; // or .text() or .blob() ..
+        return success;
       })
-      .then((text) => {
-        console.log(text);
+      .then((success) => {
+        //console.log("service ok: " +success);
       })
       .catch((e) => {
         console.error(e.message);
       });
+      //FIXME: simulate network delay
+      await new Promise(r => setTimeout(r, 2000));
+
+      return success;
     },
 
-    reportCardIssue: function(data){
+    reportCardIssue: async function(data){
       const headers = new Headers();
       headers.append('API-Key', 'C5F5A63C-E604-47AA-A7CC-B01F95FFBF09');
-      
+      headers.append('content-type', 'application/json');
+
       var bodyBuilder = {
-        "cardId":data.cardId,
-        "cardStatus":data.reason,
-        "comment":data.comment,              
+        cardId: data.cardId,
+        cardStatus: data.reason,
+        comment: data.comment,              
       };
-      
-      const init = {
+      const input = {
         method: 'POST',
         headers,
         body: JSON.stringify(bodyBuilder),
       };
-      
-      fetch(`${baseURL}/cardcontrols/reportcardissue`, init)
+
+      await fetch(`${myApp.services.baseURL}/cardcontrols/reportcardissue`, input)
       .then((response) => {
-        return response.json(); // or .text() or .blob() ...
+        success = response.ok
+        return response.ok; // or .text() or .blob() ...
       })
-      .then((text) => {
-        // text is the response body
+      .then((body) => {
+          //console.log(JSON.stringify(body));
       })
       .catch((e) => {
-        // error in e.message
+        console.error(e);
       });
+      //FIXME: simulate network delay
+      await new Promise(r => setTimeout(r, 2000));
+      return success;
     }
   },
 
@@ -60,16 +70,23 @@ myApp.services = {
       method: 'GET',
       headers
     };
-    
-    fetch(`${baseURL}/cardInfo/${userId}`, init)
+    fetch(`${myApp.services.baseURL}/cardInfo/${myApp.services.userId}`, init)
     .then((response) => {
       return response.json(); // or .text() or .blob() ...
     })
     .then((text) => {
-      // text is the response body
+      for (var card of text.cards) {
+        myApp.services.cards.create({
+            cardId: card.cardId,
+            cardName: card.cardName,
+            maskedCardNumber: card.maskedCardNumber,
+            frozen: false
+        });
+      }
+      //console.log(JSON.stringify(text));
     })
     .catch((e) => {
-      // error in e.message
+      console.error(e);
     });
   },
 
@@ -82,7 +99,7 @@ myApp.services = {
             '<div class="left">' +
               data.maskedCardNumber +
             '</div>' +
-            '<div class="center">' +
+            '<div class="right">' +
               data.cardName +
             '</div>' +
           '</ons-list-item>'+
@@ -96,8 +113,8 @@ myApp.services = {
         document.querySelector('#freezeSwitch').checked = data.frozen
       };
 
-      var cardList = document.querySelector('#card-list');
-      cardList.insert(cardItem);
+      var cardList = document.querySelector('#cardSelect');
+      cardList.add(cardItem);
     }
   }
 }
