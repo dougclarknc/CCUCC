@@ -11,15 +11,12 @@ myApp.services = {
         method: 'POST',
         headers
       };
-      console.log("at onOff");
       fetch(`${myApp.services.baseURL}/cardcontrols/onoff/${data.cardId}`, init)
       .then((response) => {
-        if (!response.ok) console.error("Response NOT OK");
-        else console.log("Response OK");
-        response.json(); // or .text() or .blob() ...
+        response.blob(); // or .text() or .blob() ..
       })
-      .then((data) => {
-        console.log(data.value);
+      .then((text) => {
+        console.log(text);
       })
       .catch((e) => {
         console.error(e.message);

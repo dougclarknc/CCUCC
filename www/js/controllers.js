@@ -1,5 +1,7 @@
 myApp.controllers = {
   cardMgmtPage: function(page) {
+    
+
     page.querySelector('[component="button/submit"]').onclick = function() {
       var replacementReason = page.querySelector('#replaceReasonSelect').value;
       if (replacementReason === "") {
@@ -12,11 +14,10 @@ myApp.controllers = {
       }
     };
 
-    document.querySelector('#freezeSwitch').addEventListener('change', function() {
-      var currentCardID = page.querySelector('#cardSelect').value.cardID;
-      console.log("controller init onoff");
+    page.querySelector('#freezeSwitch').addEventListener('change', function() {
+      var currentCardID = 1; //page.querySelector('#cardSelect').value.cardID;
       var success = myApp.services.cardControls.onOff({
-        cardID: currentCardID,
+        cardId: currentCardID,
         frozen: this.value,
       });
       if (!success) document.querySelector('#freezeSwitch').checked = false;
